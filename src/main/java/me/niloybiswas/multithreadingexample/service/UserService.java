@@ -29,16 +29,9 @@ public class UserService {
         log.info("saving list of users of size {} => {} ", Thread.currentThread().getName(), users.size());
         users = userRepository.saveAll(users);
         final long end = System.currentTimeMillis();
-        log.info("Execution Time => {}", (end-start));
+        log.info("Execution Time => {}", (end - start));
         return CompletableFuture.completedFuture(users);
     }
-
-    /*@Async
-    public CompletableFuture<List<User>> findAllUsers() {
-        log.info("{} => getting list of users...", Thread.currentThread().getName());
-        List<User> users = userRepository.findAll();
-        return CompletableFuture.completedFuture(users);
-    }*/
 
     @Async
     public CompletableFuture<List<User>> findAllUsers() {
@@ -49,6 +42,7 @@ public class UserService {
 
     /**
      * Utility method for parsing CSV
+     *
      * @param file
      * @return
      * @throws IOException
@@ -60,11 +54,7 @@ public class UserService {
                 String line;
                 while ((line = br.readLine()) != null) {
                     final String[] data = line.split(",");
-                    final User user = User.builder()
-                            .name(data[0])
-                            .email(data[1])
-                            .gender(data[2])
-                            .build();
+                    final User user = User.builder().name(data[0]).email(data[1]).gender(data[2]).build();
                     users.add(user);
                 }
                 return users;

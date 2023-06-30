@@ -30,6 +30,14 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("message", "Success"));
     }
 
+    /**
+     * You can get result from completable futures like below
+     * Or
+     * Can follow the usual way with ResponseEntity<> return type
+     * @return
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
     /*@GetMapping("/users")
     public CompletableFuture<?> findAllUsers() throws ExecutionException, InterruptedException {
         List<User> result =  userService.findAllUsers().get();
@@ -46,11 +54,7 @@ public class UserController {
         CompletableFuture<List<User>> users1 = userService.findAllUsers();
         CompletableFuture<List<User>> users2 = userService.findAllUsers();
         CompletableFuture<List<User>> users3 = userService.findAllUsers();
-//        CompletableFuture.allOf(users1, users2, users3);
-        List<User> resultUsers1 = users1.get();
-        List<User> resultUsers2 = users2.get();
-        List<User> resultUsers3 = users3.get();
-
+        CompletableFuture.allOf(users1, users2, users3);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
